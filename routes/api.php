@@ -43,7 +43,7 @@ Route::put('/contratosempresa/{id}', "App\Http\Controllers\ContratoEmpresaContro
 
 Route::get('/faturascontrato', "App\Http\Controllers\FaturaContratoController@index");
 Route::post('/faturascontrato', "App\Http\Controllers\FaturaContratoController@store");
-Route::get('/maxfaturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@maxData");
+Route::get('/faturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@maxData");
 Route::put('/faturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@update");
 
 Route::post('register', 'App\Http\Controllers\UserController@register');
