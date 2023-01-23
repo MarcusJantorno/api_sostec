@@ -19,6 +19,12 @@ class FaturaContratoController extends Controller
         return $faturasContrato;
     }
 
+    public function maxData(Request $request)
+    {
+        $faturaContrato = FaturaContrato::findOrFail( $request->id )->max('data');
+        return $faturaContrato;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
