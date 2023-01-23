@@ -88,9 +88,9 @@ class FaturaContratoController extends Controller
         }
     }
 
-    public function maxData(Request $request)
+    public function searchMaxFatura($id)
     {
-        $faturaContrato = FaturaContrato::findOrFail( $request->id )->max('data');
+        $faturaContrato = FaturaContrato::findOrFail($id)->max('data');
         return $faturaContrato;
     }
 
