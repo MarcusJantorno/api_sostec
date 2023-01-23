@@ -50,6 +50,9 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->cidade = $request->input('cidade');
         $contratoEmpresa->estado = $request->input('estado');
         $contratoEmpresa->telefone = $request->input('telefone');
+        $contratoEmpresa->estado = $request->input('data_nascimento');
+        $contratoEmpresa->estado = $request->input('idade');
+        $contratoEmpresa->estado = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
 
         if( $contratoEmpresa->save() ){
@@ -101,6 +104,9 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->cidade = $request->input('cidade');
         $contratoEmpresa->estado = $request->input('estado');
         $contratoEmpresa->telefone = $request->input('telefone');
+        $contratoEmpresa->estado = $request->input('data_nascimento');
+        $contratoEmpresa->estado = $request->input('idade');
+        $contratoEmpresa->estado = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
 
         if( $contratoEmpresa->save() ){
@@ -116,6 +122,11 @@ class ContratoEmpresaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contratoEmpresa = ContratoEmpresa::find($id);
+        $contratoEmpresa->delete();
+
+        if($contratoEmpresa->delete()){
+            return $contratoEmpresa;
+        }
     }
 }

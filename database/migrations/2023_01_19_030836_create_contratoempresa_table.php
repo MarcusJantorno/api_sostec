@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->string('telefone');
+            $table->date('data_nascimento');
+            $table->integer('idade');
+            $table->integer('vip');
             $table->string('email');
             $table->timestamps();
         });

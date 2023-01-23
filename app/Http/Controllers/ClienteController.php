@@ -104,6 +104,11 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cliente = Cliente::find($id);
+        $cliente->delete();
+
+        if($cliente->delete()){
+            return $cliente;
+        }
     }
 }

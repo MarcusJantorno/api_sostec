@@ -102,6 +102,11 @@ class FaturaContratoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $faturaContrato = FaturaContrato::find($id);
+        $faturaContrato->delete();
+
+        if($faturaContrato->delete()){
+            return $faturaContrato;
+        }
     }
 }

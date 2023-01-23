@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/clientes', "App\Http\Controllers\ClienteController@index");
 Route::post('/clientes', "App\Http\Controllers\ClienteController@store");
 Route::put('/clientes/{id}', "App\Http\Controllers\ClienteController@update");
+Route::delete('/clientes/{id}', "App\Http\Controllers\ClienteController@destroy");
 
 Route::get('/aparelhos', "App\Http\Controllers\AparelhoController@index");
 Route::post('/aparelhos', "App\Http\Controllers\AparelhoController@store");
@@ -32,19 +33,23 @@ Route::put('/aparelhos/{id}', "App\Http\Controllers\AparelhoController@update");
 Route::get('/cartoes', "App\Http\Controllers\CartaoController@index");
 Route::post('/cartoes', "App\Http\Controllers\CartaoController@store");
 Route::put('/cartoes/{id}', "App\Http\Controllers\CartaoController@update");
+Route::delete('/cartoes/{id}', "App\Http\Controllers\CartaoController@destroy");
 
 Route::get('/contratos', "App\Http\Controllers\ContratoController@index");
 Route::post('/contratos', "App\Http\Controllers\ContratoController@store");
 Route::put('/contratos/{id}', "App\Http\Controllers\ContratoController@update");
+Route::delete('/contratos/{id}', "App\Http\Controllers\ContratoController@destroy");
 
 Route::get('/contratosempresa', "App\Http\Controllers\ContratoEmpresaController@index");
 Route::post('/contratosempresa', "App\Http\Controllers\ContratoEmpresaController@store");
 Route::put('/contratosempresa/{id}', "App\Http\Controllers\ContratoEmpresaController@update");
+Route::delete('/contratosempresa/{id}', "App\Http\Controllers\ContratoEmpresaController@destroy");
 
 Route::get('/faturascontrato', "App\Http\Controllers\FaturaContratoController@index");
 Route::post('/faturascontrato', "App\Http\Controllers\FaturaContratoController@store");
 Route::get('/maxfaturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@searchMaxFatura");
 Route::put('/faturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@update");
+Route::delete('/faturascontrato/{id}', "App\Http\Controllers\FaturaContratoController@destroy");
 
 Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@login');

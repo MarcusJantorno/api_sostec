@@ -100,6 +100,11 @@ class CartaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cartao = Cartao::find($id);
+        $cartao->delete();
+
+        if($cartao->delete()){
+            return $cartao;
+        }
     }
 }
