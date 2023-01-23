@@ -50,9 +50,9 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->cidade = $request->input('cidade');
         $contratoEmpresa->estado = $request->input('estado');
         $contratoEmpresa->telefone = $request->input('telefone');
-        $contratoEmpresa->estado = $request->input('data_nascimento');
-        $contratoEmpresa->estado = $request->input('idade');
-        $contratoEmpresa->estado = $request->input('vip');
+        $contratoEmpresa->data_nascimento = $request->input('data_nascimento');
+        $contratoEmpresa->idade = $request->input('idade');
+        $contratoEmpresa->vip = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
 
         if( $contratoEmpresa->save() ){
@@ -104,9 +104,9 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->cidade = $request->input('cidade');
         $contratoEmpresa->estado = $request->input('estado');
         $contratoEmpresa->telefone = $request->input('telefone');
-        $contratoEmpresa->estado = $request->input('data_nascimento');
-        $contratoEmpresa->estado = $request->input('idade');
-        $contratoEmpresa->estado = $request->input('vip');
+        $contratoEmpresa->data_nascimento = $request->input('data_nascimento');
+        $contratoEmpresa->idade = $request->input('idade');
+        $contratoEmpresa->vip = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
 
         if( $contratoEmpresa->save() ){
