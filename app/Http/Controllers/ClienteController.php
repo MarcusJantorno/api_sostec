@@ -44,6 +44,11 @@ class ClienteController extends Controller
         $cliente->telefone1 = $request->input('telefone1');
         $cliente->telefone2 = $request->input('telefone2');
         $cliente->telefone3 = $request->input('telefone3');
+        $cliente->logradouro = $request->input('logradouro');
+        $cliente->bairro = $request->input('bairro');
+        $cliente->cidade = $request->input('cidade');
+        $cliente->estado = $request->input('estado');
+        $cliente->cep = $request->input('cep');
         $cliente->obs = $request->input('obs');
 
         if( $cliente->save() ){
@@ -89,6 +94,11 @@ class ClienteController extends Controller
         $cliente->telefone1 = $request->input('telefone1');
         $cliente->telefone2 = $request->input('telefone2');
         $cliente->telefone3 = $request->input('telefone3');
+        $cliente->logradouro = $request->input('logradouro');
+        $cliente->bairro = $request->input('bairro');
+        $cliente->cidade = $request->input('cidade');
+        $cliente->estado = $request->input('estado');
+        $cliente->cep = $request->input('cep');
         $cliente->obs = $request->input('obs');
 
         if( $cliente->save() ){

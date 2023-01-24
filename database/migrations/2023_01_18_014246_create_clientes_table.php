@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('telefone1');
             $table->string('telefone2')->nullable();
             $table->string('telefone3')->nullable();
+            $table->longText('logradouro');
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->string('cep');
             $table->longText('obs')->nullable();
             $table->timestamps();
         });
