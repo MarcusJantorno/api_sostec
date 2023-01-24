@@ -43,6 +43,7 @@ class CartaoController extends Controller
         $cartao->numero = $request->input('numero');
         $cartao->nds = $request->input('nds');
         $cartao->aparelho_id = $request->input('aparelho_id');
+        $cartao->obs = $request->input('obs');
 
         if( $cartao->save() ){
             return $cartao;
@@ -86,6 +87,7 @@ class CartaoController extends Controller
         $cartao->numero = $request->input('numero');
         $cartao->nds = $request->input('nds');
         $cartao->aparelho_id = $request->input('aparelho_id');
+        $cartao->obs = $request->input('obs');
 
         if( $cartao->save() ){
             return $cartao;

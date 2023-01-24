@@ -54,6 +54,7 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->idade = $request->input('idade');
         $contratoEmpresa->vip = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
+        $contratoEmpresa->obs = $request->input('obs');
 
         if( $contratoEmpresa->save() ){
             return $contratoEmpresa;
@@ -108,6 +109,7 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->idade = $request->input('idade');
         $contratoEmpresa->vip = $request->input('vip');
         $contratoEmpresa->email = $request->input('email');
+        $contratoEmpresa->obs = $request->input('obs');
 
         if( $contratoEmpresa->save() ){
             return $contratoEmpresa;

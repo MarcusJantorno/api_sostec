@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('numero');
             $table->string('nds');
             $table->unsignedBigInteger('aparelho_id')->unsigned();
+            $table->longText('obs')->nullable();
             $table->timestamps();
         });
     }

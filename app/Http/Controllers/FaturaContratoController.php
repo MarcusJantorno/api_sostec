@@ -41,6 +41,7 @@ class FaturaContratoController extends Controller
         $faturaContrato->valor = $request->input('valor');
         $faturaContrato->data = $request->input('data');
         $faturaContrato->contratoempresa_id = $request->input('contratoempresa_id');
+        $faturaContrato->obs = $request->input('obs');
 
         if( $faturaContrato->save() ){
             return $faturaContrato;
@@ -82,6 +83,7 @@ class FaturaContratoController extends Controller
         $faturaContrato->valor = $request->input('valor');
         $faturaContrato->data = $request->input('data');
         $faturaContrato->contratoempresa_id = $request->input('contratoempresa_id');
+        $faturaContrato->obs = $request->input('obs');
 
         if( $faturaContrato->save() ){
             return $faturaContrato;

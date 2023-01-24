@@ -31,6 +31,7 @@ return new class extends Migration
             $table->integer('idade');
             $table->integer('vip');
             $table->string('email');
+            $table->longText('obs')->nullable();
             $table->timestamps();
         });
     }

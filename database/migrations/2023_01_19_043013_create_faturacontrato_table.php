@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('valor');
             $table->date('data');
             $table->unsignedBigInteger('contratoempresa_id');
+            $table->longText('obs')->nullable();
             $table->timestamps();
         });
     }
