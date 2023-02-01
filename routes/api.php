@@ -6,6 +6,7 @@ use App\Http\Controllers\CartaoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ContratoEmpresaController;
 use App\Http\Controllers\FaturaContratoController;
+use App\Http\Controllers\CobrancasController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,11 @@ Route::get('/contratosempresa', "App\Http\Controllers\ContratoEmpresaController@
 Route::post('/contratosempresa', "App\Http\Controllers\ContratoEmpresaController@store");
 Route::put('/contratosempresa/{id}', "App\Http\Controllers\ContratoEmpresaController@update");
 Route::delete('/contratosempresa/{id}', "App\Http\Controllers\ContratoEmpresaController@destroy");
+
+Route::get('/cobrancas', "App\Http\Controllers\CobrancasController@index");
+Route::post('/cobrancas', "App\Http\Controllers\CobrancasController@store");
+Route::put('/cobrancas/{id}', "App\Http\Controllers\CobrancasController@update");
+Route::delete('/cobrancas/{id}', "App\Http\Controllers\CobrancasController@destroy");
 
 Route::get('/faturascontrato', "App\Http\Controllers\FaturaContratoController@index");
 Route::post('/faturascontrato', "App\Http\Controllers\FaturaContratoController@store");
