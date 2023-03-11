@@ -41,6 +41,7 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->numero = $request->input('numero');
         $contratoEmpresa->titular = $request->input('titular');
         $contratoEmpresa->cpf = $request->input('cpf');
+        $contratoEmpresa->rg = $request->input('rg');
         $contratoEmpresa->vencimento = $request->input('vencimento');
         $contratoEmpresa->quantidade_pontos = $request->input('quantidade_pontos');
         $contratoEmpresa->valor_ponto = $request->input('valor_ponto');
@@ -96,6 +97,7 @@ class ContratoEmpresaController extends Controller
         $contratoEmpresa->numero = $request->input('numero');
         $contratoEmpresa->titular = $request->input('titular');
         $contratoEmpresa->cpf = $request->input('cpf');
+        $contratoEmpresa->rg = $request->input('rg');
         $contratoEmpresa->vencimento = $request->input('vencimento');
         $contratoEmpresa->quantidade_pontos = $request->input('quantidade_pontos');
         $contratoEmpresa->valor_ponto = $request->input('valor_ponto');

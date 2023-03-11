@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('numero');
             $table->string('titular');
             $table->string('cpf');
+            $table->string('rg')->nullable();
             $table->integer('vencimento');
             $table->integer('quantidade_pontos');
             $table->string('valor_ponto');
@@ -30,7 +31,7 @@ return new class extends Migration
             $table->date('data_nascimento');
             $table->integer('idade');
             $table->integer('vip');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
         });
