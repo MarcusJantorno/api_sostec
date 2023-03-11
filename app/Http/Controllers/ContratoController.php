@@ -15,7 +15,7 @@ class ContratoController extends Controller
      */
     public function index()
     {
-        $contratos = DB::table('contratos')
+        $contratos = \DB::table('contratos')
             ->join('clientes', 'contratos.cliente_id', '=', 'clientes.id')
             ->select('contratos.*', 'clientes.nome')
             ->get();
