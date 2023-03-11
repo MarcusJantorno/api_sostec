@@ -29,6 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('aparelho_id')->unsigned();
             $table->longText('numero_serie');
             $table->integer('dia_vencimento');
+            $table->date('data_vencimento');
             $table->integer('valor');
             $table->longText('obs')->nullable();
             $table->timestamps();

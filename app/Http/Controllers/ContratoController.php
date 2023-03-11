@@ -51,6 +51,7 @@ class ContratoController extends Controller
         $contrato->aparelho_id = $request->input('aparelho_id');
         $contrato->numero_serie = $request->input('numero_serie');
         $contrato->dia_vencimento = $request->input('dia_vencimento');
+        $contrato->data_vencimento = $request->input('data_vencimento');
         $contrato->valor = $request->input('valor');
         $contrato->obs = $request->input('obs');
 
@@ -104,6 +105,7 @@ class ContratoController extends Controller
         $contrato->aparelho_id = $request->input('aparelho_id');
         $contrato->numero_serie = $request->input('numero_serie');
         $contrato->dia_vencimento = $request->input('dia_vencimento');
+        $contrato->data_vencimento = $request->input('data_vencimento');
         $contrato->valor = $request->input('valor');
         $contrato->obs = $request->input('obs');
 
