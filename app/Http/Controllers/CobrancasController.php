@@ -16,7 +16,7 @@ class CobrancasController extends Controller
     public function index()
     {
         $cobrancas = \DB::table('cobrancas')
-            ->select('cobrancas.*', \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id)'))
+            ->select('cobrancas.*', \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'))
             ->get();
         //$cobrancas = Cobrancas::all();
         return $cobrancas;
