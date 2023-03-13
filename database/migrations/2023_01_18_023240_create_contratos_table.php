@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
+            $table->integer('ponto');
             $table->string('cep');
             $table->unsignedBigInteger('cartao_id')->unsigned();
             $table->date('data_instalacao');

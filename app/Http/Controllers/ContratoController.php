@@ -48,6 +48,7 @@ class ContratoController extends Controller
         $contrato->bairro = $request->input('bairro');
         $contrato->cidade = $request->input('cidade');
         $contrato->estado = $request->input('estado');
+        $contrato->ponto = $request->input('ponto');
         $contrato->cep = $request->input('cep');
         $contrato->cartao_id = $request->input('cartao_id');
         $contrato->data_instalacao = $request->input('data_instalacao');
@@ -102,6 +103,7 @@ class ContratoController extends Controller
         $contrato->bairro = $request->input('bairro');
         $contrato->cidade = $request->input('cidade');
         $contrato->estado = $request->input('estado');
+        $contrato->ponto = $request->input('ponto');
         $contrato->cep = $request->input('cep');
         $contrato->cartao_id = $request->input('cartao_id');
         $contrato->data_instalacao = $request->input('data_instalacao');
