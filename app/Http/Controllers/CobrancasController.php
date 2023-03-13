@@ -15,7 +15,11 @@ class CobrancasController extends Controller
      */
     public function index()
     {
-        $cobrancas = Cobrancas::all();
+        $cobrancas = \DB::table('cobrancas')
+            ->join('cobrancas_geradas', 'cobrancas_geradas.contrato_id', '=', 'cobrancas.contrato_id')
+            ->select('cobrancas.*', \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id)'))
+            ->get();
+        //$cobrancas = Cobrancas::all();
         return $cobrancas;
     }
 
