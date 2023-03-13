@@ -17,10 +17,8 @@ class ContratoController extends Controller
     {
         $contratos = \DB::table('contratos')
             ->join('clientes', 'contratos.cliente_id', '=', 'clientes.id')
-            ->join('cobrancas_geradas', 'cobrancas_geradas.contrato_id', '=', 'contratos.id')
             ->select('contratos.*', 'clientes.nome', \DB::raw('(SELECT MAX(vencimento) ultimo_vencimento FROM cobrancas_geradas 
-            WHERE cobrancas_geradas.contrato_id = contratos.id and cobrancas_geradas.status <> "CONCLUIDA") as ultimo_vencimento'))
-            ->groupBy(\DB::raw('ultimo_vencimento, contratos.*'))
+            WHERE contrato_id = contratos.id and status <> "CONCLUIDA") as ultimo_vencimento'))
             ->get();
         //$contratos = Contrato::all();
         return $contratos;
