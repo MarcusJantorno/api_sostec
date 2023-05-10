@@ -19,11 +19,13 @@ class CobrancasController extends Controller
             ->select('cobrancas.*', \DB::raw('(select c.id as cliente_id from cobrancas
             join contratos ct on ct.id = cobrancas.contrato_id
             join clientes c on c.id = ct.cliente_id
+            where ct.id = cobrancas.contrato_id
             group by c.id) as cliente_id
             '),
             \DB::raw('(select c.nome as cliente_nome from cobrancas
             join contratos ct on ct.id = cobrancas.contrato_id
             join clientes c on c.id = ct.cliente_id
+            where ct.id = cobrancas.contrato_id
             group by c.nome) as cliente_nome
             '),
             \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
