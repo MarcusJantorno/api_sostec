@@ -16,11 +16,17 @@ class CobrancasController extends Controller
     public function index()
     {
         $cobrancas = \DB::table('cobrancas')
-            ->select('cobrancas.*', \DB::raw('(select c.id as cliente_id, c.nome as cliente_nome from cobrancas
+            ->select('cobrancas.*', \DB::raw('(select c.id as cliente_id from cobrancas
             join contratos ct on ct.id = cobrancas.contrato_id
-            join clientes c on c.id = ct.cliente_id)
-            group by c.id, c.nome
-            '), \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
+            join clientes c on c.id = ct.cliente_id
+            group by c.id, c.nome) as cliente_id
+            '),
+            \DB::raw('(select c.nome as cliente_nome from cobrancas
+            join contratos ct on ct.id = cobrancas.contrato_id
+            join clientes c on c.id = ct.cliente_id
+            group by c.id, c.nome) as cliente_nome
+            '),
+            \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
             WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA") as ultimo_vencimento'))
             ->get();
         //$cobrancas = Cobrancas::all();
