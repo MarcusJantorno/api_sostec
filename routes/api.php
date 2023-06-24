@@ -8,6 +8,7 @@ use App\Http\Controllers\ContratoEmpresaController;
 use App\Http\Controllers\FaturaContratoController;
 use App\Http\Controllers\CobrancasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContasEfiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,11 @@ Route::get('/cobrancas', "App\Http\Controllers\CobrancasController@index");
 Route::post('/cobrancas', "App\Http\Controllers\CobrancasController@store");
 Route::put('/cobrancas/{id}', "App\Http\Controllers\CobrancasController@update");
 Route::delete('/cobrancas/{id}', "App\Http\Controllers\CobrancasController@destroy");
+
+Route::get('/contasefi', "App\Http\Controllers\ContasEfiController@index");
+Route::post('/contasefi', "App\Http\Controllers\ContasEfiController@store");
+Route::put('/contasefi/{id}', "App\Http\Controllers\ContasEfiController@update");
+Route::delete('/contasefi/{id}', "App\Http\Controllers\ContasEfiController@destroy");
 
 Route::get('/faturascontrato', "App\Http\Controllers\FaturaContratoController@index");
 Route::post('/faturascontrato', "App\Http\Controllers\FaturaContratoController@store");
