@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ContasEfi extends Model
 {
     use HasFactory;
+    protected $table = "contasefi";
 }
