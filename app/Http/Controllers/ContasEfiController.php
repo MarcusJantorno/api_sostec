@@ -42,6 +42,7 @@ class ContasEfiController extends Controller
         $contasEfi->client_id = $request->input('client_id');
         $contasEfi->client_secret = $request->input('client_secret');
         $contasEfi->certificado = $request->input('certificado');
+        $contasEfi->chave_pix = $request->input('chave_pix');
 
         if( $contasEfi->save() ){
             return $contasEfi;
@@ -84,6 +85,7 @@ class ContasEfiController extends Controller
         $contasEfi->client_id = $request->input('client_id');
         $contasEfi->client_secret = $request->input('client_secret');
         $contasEfi->certificado = $request->input('certificado');
+        $contasEfi->chave_pix = $request->input('chave_pix');
 
         if( $contasEfi->save() ){
             return $contasEfi;

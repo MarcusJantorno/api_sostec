@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('client_id');
             $table->string('client_secret');
             $table->string('certificado');
+            $table->string('chave_pix');
             $table->timestamps();
         });
     }
