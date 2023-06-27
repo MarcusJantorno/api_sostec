@@ -16,10 +16,22 @@ class CobrancasController extends Controller
     public function index()
     {
         $cobrancas = \DB::table('cobrancas')
-            ->join('contratos', 'contratos.id', '=', 'cobrancas.contrato_id')
-            ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
-            ->select('cobrancas.*', 'clientes.id as cliente_id' , 'clientes.nome as cliente_nome' , \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
-            WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA") as ultimo_vencimento'))
+            ->select(\DB::raw('
+            SELECT cobrancas.id as id, cobrancas.contrato_id as contrato_id,
+            case
+                when cobrancas.contrato_id IS NULL then (select UPPER(cg2.nome) from cobrancas_geradas cg2 where cg2.cobrancas_id = cobrancas.id LIMIT 1)
+                else (select (select clientes.nome from clientes where id = contratos.cliente_id ) from contratos where contratos.id = cobrancas.contrato_id)
+            end as cliente_nome, 
+            case
+                when cobrancas.contrato_id IS NULL then (SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas WHERE cobrancas_geradas.cobrancas_id = cobrancas.id and status <> "CONCLUIDA")
+                else (SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA")
+            end as ultimo_vencimento,
+            case
+                when cobrancas.contrato_id IS NULL then (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.cobrancas_id = cobrancas.id)
+                else (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id)
+            end as inadimplente
+            FROM cobrancas
+            '))
             ->get();
         //$cobrancas = Cobrancas::all();
         return $cobrancas;
