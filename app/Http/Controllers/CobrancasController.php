@@ -17,10 +17,9 @@ class CobrancasController extends Controller
     {
         $cobrancas = \DB::table('cobrancas')
             ->join('contratos', 'contratos.id', '=', 'cobrancas.contrato_id')
-            //->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
-            ->select('cobrancas.*', \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
-            WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA") as ultimo_vencimento'), \DB::raw('(select (select (select clientes.nome from clientes where id = contratos.cliente_id ) from contratos where contratos.id = cobrancas.contrato_id) as cliente_nome from cobrancas
-            where cobrancas.contrato_id = contratos.id)'))
+            ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
+            ->select('cobrancas.*', 'clientes.id as cliente_id' , 'clientes.nome as cliente_nome' , \DB::raw('(select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id) as inadimplente'), \DB::raw('(SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas 
+            WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA") as ultimo_vencimento'))
             ->get();
         //$cobrancas = Cobrancas::all();
         return $cobrancas;
