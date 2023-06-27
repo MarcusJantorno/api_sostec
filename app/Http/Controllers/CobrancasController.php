@@ -31,7 +31,7 @@ class CobrancasController extends Controller
         end as inadimplente
         FROM cobrancas
         ';
-        $cobrancas = \DB::raw($query)->get();
+        $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
         return $cobrancas;
     }
