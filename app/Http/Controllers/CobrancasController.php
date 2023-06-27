@@ -15,8 +15,7 @@ class CobrancasController extends Controller
      */
     public function index()
     {
-        $cobrancas = \DB::table('cobrancas')
-            ->select(\DB::raw('
+        $cobrancas = \DB::raw('
             SELECT cobrancas.id as id, cobrancas.contrato_id as contrato_id,
             case
                 when cobrancas.contrato_id IS NULL then (select UPPER(cg2.nome) from cobrancas_geradas cg2 where cg2.cobrancas_id = cobrancas.id LIMIT 1)
@@ -31,7 +30,7 @@ class CobrancasController extends Controller
                 else (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id)
             end as inadimplente
             FROM cobrancas
-            '))
+            ')
             ->get();
         //$cobrancas = Cobrancas::all();
         return $cobrancas;
