@@ -23,8 +23,15 @@ class CobrancasController extends Controller
         case when cobrancas.contrato_id IS NULL then (select SUBSTRING(max(vencimento), 9,10) from cobrancas_geradas cg3 where cg3.cobrancas_id = cobrancas.id)
         else (select SUBSTRING(max(vencimento), 9,10) from cobrancas_geradas cg3 where cg3.contrato_id = cobrancas.contrato_id)
         end as dia_venc,
-        case
-            when cobrancas.contrato_id IS NULL then (select UPPER(cg2.nome) from cobrancas_geradas cg2 where cg2.cobrancas_id = cobrancas.id LIMIT 1)
+        case when cobrancas.contrato_id IS NULL then (select distinct cf.descricao from cobrancas_geradas cg4 join contasefi cf on cf.id = cg4.contaefi where cg4.cobrancas_id = cobrancas.id)
+        else (select distinct cf.descricao from cobrancas_geradas cg4 join contasefi cf on cf.id = cg4.contaefi where cg4.contrato_id = cobrancas.contrato_id)
+        end as contaefi,
+        case when cobrancas.contrato_id IS NULL then (select distinct c.cpf from cobrancas_geradas cg5 join clientes c on c.cpf = cg5.cpf where cg5.cobrancas_id = cobrancas.id)
+        else (select DISTINCT c.cpf from cobrancas_geradas cg5 join contratos ct on ct.id = cg5.contrato_id join clientes c on c.id = ct.cliente_id where cg5.contrato_id = cobrancas.contrato_id)
+        end as cpf,
+                case
+                    when cobrancas.contrato_id IS NULL then (select UPPER(cg2.nome) from cobrancas_geradas cg2 where cg2.cobrancas_id = cobrancas.id
+        ORDER BY `contaefi` ASC LIMIT 1)
             else (select (select clientes.nome from clientes where id = contratos.cliente_id ) from contratos where contratos.id = cobrancas.contrato_id)
         end as cliente_nome,
         case
