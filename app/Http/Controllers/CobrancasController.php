@@ -16,7 +16,7 @@ class CobrancasController extends Controller
     public function index()
     {
         $query = '
-        SELECT cobrancas.id as id, cobrancas.contrato_id as contrato_id, cobrancas.valor as valor,
+        SELECT cobrancas.id as id, cobrancas.contrato_id as contrato_id, CAST((cobrancas.valor) AS DECIMAL(12,2)) as valor,
         case when cobrancas.contrato_id IS NULL then (select max(vencimento) from cobrancas_geradas cg3 where cg3.cobrancas_id = cobrancas.id)
         else (select max(vencimento) from cobrancas_geradas cg3 where cg3.contrato_id = cobrancas.contrato_id)
         end as ultimo_vencimento,
