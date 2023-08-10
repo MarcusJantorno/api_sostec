@@ -39,8 +39,8 @@ class CobrancasController extends Controller
             else (SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA")
         end as ultimo_vencimento,
         case
-            when cobrancas.contrato_id IS NULL then (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.cobrancas_id = cobrancas.id)
-            else (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id)
+            when cobrancas.contrato_id IS NULL then (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.cobrancas_id = cobrancas.id limit 1)
+            else (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id limit 1)
         end as inadimplente
         FROM cobrancas;
         ';
