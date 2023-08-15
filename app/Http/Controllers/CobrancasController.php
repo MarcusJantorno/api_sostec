@@ -24,7 +24,7 @@ class CobrancasController extends Controller
         from cobrancas c
         join cobrancas_geradas cg on cg.cobrancas_id = c.id
         join contasefi ce on ce.id = cg.contaefi
-        group by c.id;
+        group by c.id, c.valor;
         ';
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
