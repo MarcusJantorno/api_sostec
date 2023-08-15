@@ -16,33 +16,15 @@ class CobrancasController extends Controller
     public function index()
     {
         $query = '
-        SELECT cobrancas.id as id, cobrancas.contrato_id as contrato_id, cobrancas.valor as valor,
-        case when cobrancas.contrato_id IS NULL then (select max(vencimento) from cobrancas_geradas cg3 where cg3.cobrancas_id = cobrancas.id)
-        else (select max(vencimento) from cobrancas_geradas cg3 where cg3.contrato_id = cobrancas.contrato_id)
-        end as ultimo_vencimento,
-        case when cobrancas.contrato_id IS NULL then (select SUBSTRING(max(vencimento), 9,10) from cobrancas_geradas cg3 where cg3.cobrancas_id = cobrancas.id)
-        else (select SUBSTRING(max(vencimento), 9,10) from cobrancas_geradas cg3 where cg3.contrato_id = cobrancas.contrato_id)
-        end as dia_venc,
-        case when cobrancas.contrato_id IS NULL then (select distinct cf.descricao from cobrancas_geradas cg4 join contasefi cf on cf.id = cg4.contaefi where cg4.cobrancas_id = cobrancas.id)
-        else (select distinct cf.descricao from cobrancas_geradas cg4 join contasefi cf on cf.id = cg4.contaefi where cg4.contrato_id = cobrancas.contrato_id)
-        end as contaefi,
-        case when cobrancas.contrato_id IS NULL then (select distinct c.cpf from cobrancas_geradas cg5 join clientes c on c.cpf = cg5.cpf where cg5.cobrancas_id = cobrancas.id)
-        else (select DISTINCT c.cpf from cobrancas_geradas cg5 join contratos ct on ct.id = cg5.contrato_id join clientes c on c.id = ct.cliente_id where cg5.contrato_id = cobrancas.contrato_id)
-        end as cpf,
-                case
-                    when cobrancas.contrato_id IS NULL then (select UPPER(cg2.nome) from cobrancas_geradas cg2 where cg2.cobrancas_id = cobrancas.id
-        ORDER BY `contaefi` ASC LIMIT 1)
-            else (select (select clientes.nome from clientes where id = contratos.cliente_id ) from contratos where contratos.id = cobrancas.contrato_id)
-        end as cliente_nome,
-        case
-            when cobrancas.contrato_id IS NULL then (SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas WHERE cobrancas_geradas.cobrancas_id = cobrancas.id and status <> "CONCLUIDA")
-            else (SELECT IFNULL(MAX(vencimento), "0000-00-00") ultimo_vencimento FROM cobrancas_geradas WHERE contrato_id = cobrancas.contrato_id and status <> "CONCLUIDA")
-        end as ultimo_vencimento,
-        case
-            when cobrancas.contrato_id IS NULL then (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.cobrancas_id = cobrancas.id limit 1)
-            else (select 1 vencido from cobrancas_geradas cg where cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" and cg.contrato_id = cobrancas.contrato_id limit 1)
-        end as inadimplente
-        FROM cobrancas;
+        select c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+        case when cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" then 1
+        else 0
+        end as inadimplente,
+        SUBSTRING(max(cg.vencimento), 9,10) as dia_venc
+        from cobrancas c
+        join cobrancas_geradas cg on cg.cobrancas_id = c.id
+        join contasefi ce on ce.id = cg.contaefi
+        group by c.id;
         ';
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
