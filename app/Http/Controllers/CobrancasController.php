@@ -16,7 +16,7 @@ class CobrancasController extends Controller
     public function index()
     {
         $query = '
-        select c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+        select c.id as id, c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
         case when cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" then 1
         else null
         end as inadimplente,
