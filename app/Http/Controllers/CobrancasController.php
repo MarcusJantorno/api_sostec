@@ -16,8 +16,7 @@ class CobrancasController extends Controller
     public function index()
     {
         $query = '
-        select valor, cpf, contrato_id, cliente_nome, contaefi, ultimo_vencimento, inadimplente
-        from (select c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+        select c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
         case when cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" then 1
         else 0
         end as inadimplente,
@@ -25,7 +24,7 @@ class CobrancasController extends Controller
         from cobrancas c
         join cobrancas_geradas cg on cg.cobrancas_id = c.id
         join contasefi ce on ce.id = cg.contaefi
-        group by c.id, c.valor, cg.cpf, c.contrato_id, ce.descricao, cg.nome) a
+        group by c.id, c.valor, cg.cpf, c.contrato_id, ce.descricao, cg.nome
         ';
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
