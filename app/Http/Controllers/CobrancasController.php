@@ -17,7 +17,7 @@ class CobrancasController extends Controller
     {
         $query = '
         select c.id as id, c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
-        max(case when cg.vencimento < CURDATE() and cg.status <> "CONCLUIDA" then 1
+        max(case when cg.vencimento_original < CURDATE() and cg.status <> "CONCLUIDA" then 1
         else null
         end) as inadimplente,
         SUBSTRING(max(cg.vencimento), 9,10) as dia_venc
