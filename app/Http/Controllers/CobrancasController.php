@@ -20,7 +20,7 @@ class CobrancasController extends Controller
         max(case when cg.vencimento_original < CURDATE() and cg.status <> "CONCLUIDA" then 1
         else null
         end) as inadimplente,
-        SUBSTRING(max(cg.vencimento), 9,10) as dia_venc
+        SUBSTRING(max(cg.vencimento_original), 9,10) as dia_venc
         from cobrancas c
         join cobrancas_geradas cg on cg.cobrancas_id = c.id
         join contasefi ce on ce.id = cg.contaefi
