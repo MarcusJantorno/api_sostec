@@ -34,7 +34,6 @@ class CobrancasController extends Controller
             join cobrancas_geradas cg on cg.cobrancas_id = c.id
             join contasefi ce on ce.id = cg.contaefi
             group by c.id
-ORDER BY `inadimplente`  DESC
         ";
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
