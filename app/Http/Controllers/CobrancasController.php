@@ -16,15 +16,25 @@ class CobrancasController extends Controller
     public function index()
     {
         $query = '
-        select c.id as id, c.valor as valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
-        max(case when cg.vencimento_original < CURDATE() and cg.status <> "CONCLUIDA" then 1
-        else null
-        end) as inadimplente,
-        SUBSTRING(max(cg.vencimento_original), 9,10) as dia_venc
-        from cobrancas c
-        join cobrancas_geradas cg on cg.cobrancas_id = c.id
-        join contasefi ce on ce.id = cg.contaefi
-        group by c.id;
+        select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+            max(case when cg.vencimento_original < CURDATE() and cg.status <> "CONCLUIDA" then 1
+                else null
+                end) as inadimplente,
+             CONCAT(
+        CASE
+            WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
+                SUBSTRING(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END), 9, 2)
+            ELSE
+                SUBSTRING(MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.vencimento_original END), 9, 2)
+        END,
+        '/',
+        MONTH(CURDATE())
+    ) AS dia_venc
+            from cobrancas c
+            join cobrancas_geradas cg on cg.cobrancas_id = c.id
+            join contasefi ce on ce.id = cg.contaefi
+            group by c.id
+ORDER BY `inadimplente`  DESC
         ';
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
