@@ -20,16 +20,21 @@ class CobrancasController extends Controller
             max(case when cg.vencimento_original < CURDATE() and cg.status <> 'CONCLUIDA' then 1
                 else null
                 end) as inadimplente,
-             CONCAT(
-        CASE
-            WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
-                SUBSTRING(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END), 9, 2)
-            ELSE
-                SUBSTRING(MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.vencimento_original END), 9, 2)
-        END,
-        '/',
-        MONTH(CURDATE())
-    ) AS dia_venc
+                CONCAT(
+                    CASE
+                        WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
+                            SUBSTRING(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END), 9, 2)
+                        ELSE
+                            SUBSTRING(MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.vencimento_original END), 9, 2)
+                    END,
+                    '/',
+                    CASE
+                        WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
+                            LPAD(MONTH(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END)), 2, '0')
+                        ELSE
+                            LPAD(MONTH(CURDATE()), 2, '0')
+                    END
+                ) AS dia_venc
             from cobrancas c
             join cobrancas_geradas cg on cg.cobrancas_id = c.id
             join contasefi ce on ce.id = cg.contaefi
