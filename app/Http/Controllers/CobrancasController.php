@@ -15,9 +15,9 @@ class CobrancasController extends Controller
      */
     public function index()
     {
-        $query = '
+        $query = "
         select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
-            max(case when cg.vencimento_original < CURDATE() and cg.status <> "CONCLUIDA" then 1
+            max(case when cg.vencimento_original < CURDATE() and cg.status <> 'CONCLUIDA' then 1
                 else null
                 end) as inadimplente,
              CONCAT(
@@ -35,7 +35,7 @@ class CobrancasController extends Controller
             join contasefi ce on ce.id = cg.contaefi
             group by c.id
 ORDER BY `inadimplente`  DESC
-        ';
+        ";
         $cobrancas = \DB::select($query);
         //cobrancas = Cobrancas::all();
         return $cobrancas;
