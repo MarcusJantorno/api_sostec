@@ -15,8 +15,33 @@ class CobrancasController extends Controller
      */
     public function index()
     {
+        // $query = "
+        // select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+        //     max(case when cg.vencimento_original < CURDATE() and cg.status <> 'CONCLUIDA' then 1
+        //         else null
+        //         end) as inadimplente,
+        //         CONCAT(
+        //             CASE
+        //                 WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
+        //                     SUBSTRING(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END), 9, 2)
+        //                 ELSE
+        //                     SUBSTRING(MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.vencimento_original END), 9, 2)
+        //             END,
+        //             '/',
+        //             CASE
+        //                 WHEN MAX(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN 1 ELSE 0 END) = 1 THEN
+        //                     LPAD(MONTH(MIN(CASE WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN cg.vencimento_original END)), 2, '0')
+        //                 ELSE
+        //                     LPAD(MONTH(CURDATE()), 2, '0')
+        //             END
+        //         ) AS dia_venc
+        //     from cobrancas c
+        //     join cobrancas_geradas cg on cg.cobrancas_id = c.id
+        //     join contasefi ce on ce.id = cg.contaefi
+        //     group by c.id
+        // ";
         $query = "
-        select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento,
+            select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento, cc.estado as uf,
             max(case when cg.vencimento_original < CURDATE() and cg.status <> 'CONCLUIDA' then 1
                 else null
                 end) as inadimplente,
@@ -38,6 +63,7 @@ class CobrancasController extends Controller
             from cobrancas c
             join cobrancas_geradas cg on cg.cobrancas_id = c.id
             join contasefi ce on ce.id = cg.contaefi
+            join clientes cc on cc.cpf = cg.cpf
             group by c.id
         ";
         $cobrancas = \DB::select($query);
