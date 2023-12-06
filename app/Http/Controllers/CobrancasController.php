@@ -41,7 +41,10 @@ class CobrancasController extends Controller
         //     group by c.id
         // ";
         $query = "
-            select c.id as id, MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor else cg.valor END) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento, cc.estado as uf,
+            select c.id as id,  COALESCE(
+                MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END),
+                MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) - 1 THEN cg.valor END)
+            ) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento, cc.estado as uf,
             max(case when cg.vencimento_original < CURDATE() and cg.status <> 'CONCLUIDA' then 1
                 else null
                 end) as inadimplente,
