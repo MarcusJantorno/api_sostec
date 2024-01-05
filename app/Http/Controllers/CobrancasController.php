@@ -46,7 +46,7 @@ class CobrancasController extends Controller
                 MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) - 1 THEN cg.valor END)
             ) AS valor, cg.cpf as cpf, c.contrato_id, cg.nome as cliente_nome, ce.descricao as contaefi, max(cg.vencimento) as ultimo_vencimento, cc.estado as uf,
             MAX(CASE
-                WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' THEN
+                WHEN cg.vencimento_original < CURDATE() AND cg.status <> 'CONCLUIDA' AND CURDATE() > cg.vencimento_original THEN
                     CASE
                         WHEN DATEDIFF(CURDATE(), cg.vencimento_original) <= 2 THEN 2
                         ELSE 3
