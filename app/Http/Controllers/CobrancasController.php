@@ -41,7 +41,7 @@ class CobrancasController extends Controller
         //     group by c.id
         // ";
 
-        $timezone = 'America/Sao_Paulo';
+        $timezone = '-03:00';
 
         // Execute a query para definir o fuso horário
         \DB::statement("SET time_zone = '$timezone'");
