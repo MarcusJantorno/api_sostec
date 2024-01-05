@@ -40,8 +40,12 @@ class CobrancasController extends Controller
         //     join contasefi ce on ce.id = cg.contaefi
         //     group by c.id
         // ";
+
+        $timezone = 'America/Sao_Paulo';
+
+        // Execute a query para definir o fuso horário
+        DB::statement("SET time_zone = '$timezone'");
         $query = "
-            SET time_zone = '-03:00';
             select c.id as id,  COALESCE(
                 MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END),
                 MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) - 1 THEN cg.valor END)
