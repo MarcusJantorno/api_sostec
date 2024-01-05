@@ -72,7 +72,8 @@ class CobrancasController extends Controller
                         ELSE
                             LPAD(MONTH(CURDATE()), 2, '0')
                     END
-                ) AS dia_venc
+                ) AS dia_venc,
+                CONCAT('https://wa.me//55',REGEXP_REPLACE(cc.telefone1, '[^0-9]', ''),'?text=Existem%20em%20aberto%20para%20seu%20CPF') as link
             from cobrancas c
             join cobrancas_geradas cg on cg.cobrancas_id = c.id
             join contasefi ce on ce.id = cg.contaefi
