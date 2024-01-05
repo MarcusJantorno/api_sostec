@@ -44,7 +44,7 @@ class CobrancasController extends Controller
         $timezone = 'America/Sao_Paulo';
 
         // Execute a query para definir o fuso horário
-        DB::statement("SET time_zone = '$timezone'");
+        \DB::statement("SET time_zone = '$timezone'");
         $query = "
             select c.id as id,  COALESCE(
                 MAX(CASE WHEN MONTH(cg.vencimento_original) = MONTH(CURDATE()) THEN cg.valor END),
